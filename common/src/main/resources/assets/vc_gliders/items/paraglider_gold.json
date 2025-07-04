@@ -1,0 +1,48 @@
+{
+  "model": {
+    "type": "minecraft:select",
+    "property": "minecraft:custom_model_data",
+    "index": 0,
+    "cases": [
+      {
+        "when": "basic",
+        "model": {
+          "type": "minecraft:model",
+          "model": "vc_gliders:item/paraglider_gold"
+        }
+      },
+      {
+        "when": "combined",
+        "model": {
+          "type": "minecraft:model",
+          "model": "vc_gliders:item/paraglider_gold_combined_upgrades"
+        }
+      },
+      {
+        "when": "copper",
+        "model": {
+          "type": "minecraft:model",
+          "model": "vc_gliders:item/paraglider_gold_copper_upgrade"
+        }
+      },
+      {
+        "when": "nether",
+        "model": {
+          "type": "minecraft:model",
+          "model": "vc_gliders:item/paraglider_gold_nether_upgrade"
+        }
+      },
+      {
+        "when": "damaged",
+        "model": {
+          "type": "minecraft:model",
+          "model": "vc_gliders:item/damaged_glider"
+        }
+      }
+    ],
+    "fallback": {
+      "type": "minecraft:model",
+      "model": "vc_gliders:item/paraglider_gold"
+    }
+  }
+}

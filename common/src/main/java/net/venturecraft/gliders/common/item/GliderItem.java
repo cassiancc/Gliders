@@ -7,10 +7,12 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.*;
+import net.minecraft.world.item.component.CustomModelData;
 import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.item.equipment.Equippable;
 import net.venturecraft.gliders.util.ModConstants;
 
+import java.util.List;
 import java.util.function.Consumer;
 
 public class GliderItem extends Item {
@@ -24,6 +26,11 @@ public class GliderItem extends Item {
     }
 
     public static ItemStack setCopper(ItemStack itemStack, boolean copper) {
+        if (hasNetherUpgrade(itemStack)) {
+            itemStack.set(DataComponents.CUSTOM_MODEL_DATA, new CustomModelData(List.of(), List.of(), List.of("combined"), List.of()));
+        } else {
+            itemStack.set(DataComponents.CUSTOM_MODEL_DATA, new CustomModelData(List.of(), List.of(), List.of("copper"), List.of()));
+        }
         itemStack.set(ItemComponentRegistry.COPPER_UPGRADE.get(), copper);
         return itemStack;
     }
@@ -35,6 +42,11 @@ public class GliderItem extends Item {
     }
 
     public static ItemStack setNether(ItemStack itemStack, boolean copper) {
+        if (hasCopperUpgrade(itemStack)) {
+            itemStack.set(DataComponents.CUSTOM_MODEL_DATA, new CustomModelData(List.of(), List.of(), List.of("combined"), List.of()));
+        } else {
+            itemStack.set(DataComponents.CUSTOM_MODEL_DATA, new CustomModelData(List.of(), List.of(), List.of("nether"), List.of()));
+        }
         itemStack.set(ItemComponentRegistry.NETHER_UPGRADE.get(), copper);
         return itemStack;
     }
@@ -70,6 +82,9 @@ public class GliderItem extends Item {
     }
 
     public static void setStruck(ItemStack itemStack, boolean isStruck) {
+        if (isStruck) {
+            itemStack.set(DataComponents.CUSTOM_MODEL_DATA, new CustomModelData(List.of(), List.of(), List.of("damaged"), List.of()));
+        }
         itemStack.set(ItemComponentRegistry.STRUCK.get(), isStruck);
     }
 
