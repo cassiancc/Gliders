@@ -55,7 +55,7 @@ public class PlayerGliderLayer<T extends HumanoidRenderState, M extends Humanoid
             var stack = GliderUtil.getItem(renderState);
 
 
-            if (GliderUtil.isXWing(renderState)) {
+            if (GliderItem.isSpaceGlider(stack)) {
                 // Translate and render base glider
                 poseStack.translate(0, -1.9, -0.5);
                 xWingModel.setupAnim(renderState);

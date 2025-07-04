@@ -48,10 +48,6 @@ public class GliderUtil {
         return ((LivingEntityRenderStateAccess) renderState).vc_gliders$isGliding();
     }
 
-    public static boolean isXWing(EntityRenderState renderState) {
-        return ((LivingEntityRenderStateAccess) renderState).vc_gliders$isXWing();
-    }
-
     public static ItemStack getItem(EntityRenderState renderState) {
         return ((LivingEntityRenderStateAccess) renderState).vc_gliders$getItem();
     }

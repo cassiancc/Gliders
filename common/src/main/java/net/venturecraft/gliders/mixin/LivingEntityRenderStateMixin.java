@@ -13,15 +13,12 @@ public class LivingEntityRenderStateMixin implements LivingEntityRenderStateAcce
     @Unique
     public boolean vc_gliders$hasGlider;
     @Unique
-    public boolean vc_gliders$isXWing;
-    @Unique
     public ItemStack vc_gliders$item;
 
 
     public LivingEntityRenderStateMixin() {
         vc_gliders$isGliding = false;
         vc_gliders$hasGlider = false;
-        vc_gliders$isXWing = false;
         vc_gliders$item = ItemStack.EMPTY;
     }
 
@@ -33,13 +30,24 @@ public class LivingEntityRenderStateMixin implements LivingEntityRenderStateAcce
     public boolean vc_gliders$isGliding() {
         return vc_gliders$isGliding;
     }
-    @Override
-    public boolean vc_gliders$isXWing() {
-        return vc_gliders$isXWing;
-    }
 
     @Override
     public ItemStack vc_gliders$getItem() {
         return vc_gliders$item;
+    }
+
+    @Override
+    public void vc_gliders$setHasGlider(boolean glider) {
+        vc_gliders$hasGlider = glider;
+    }
+
+    @Override
+    public void vc_gliders$setIsGliding(boolean glidingWithActiveGlider) {
+        vc_gliders$isGliding = glidingWithActiveGlider;
+    }
+
+    @Override
+    public void vc_gliders$setItem(ItemStack stack) {
+        vc_gliders$item = stack;
     }
 }
