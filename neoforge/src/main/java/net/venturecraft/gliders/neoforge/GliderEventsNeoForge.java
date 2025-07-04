@@ -32,23 +32,23 @@ public class GliderEventsNeoForge {
         ItemStack right = event.getRight();
 
         if (left.getItem() instanceof GliderItem gliderItem) {
-            if (gliderItem.isValidRepairItem(left, right)) {
+            if (left.isValidRepairItem(right)) {
                 ItemStack result = left.copy();
                 GliderItem.setBroken(result, false);
                 result.setDamageValue(0);
-                event.setCost(5);
+                event.setXpCost(5);
                 event.setOutput(result);
             }
 
             if (right.getItem() == ItemRegistry.COPPER_UPGRADE.get()) {
-                event.setCost(10);
+                event.setXpCost(10);
                 var data = left.copy();
                 GliderItem.setCopper(data, true);
                 event.setOutput(data);
             }
 
             if (right.getItem() == ItemRegistry.NETHER_UPGRADE.get()) {
-                event.setCost(10);
+                event.setXpCost(10);
                 var data = left.copy();
                 GliderItem.setNether(data, true);
                 event.setOutput(data);

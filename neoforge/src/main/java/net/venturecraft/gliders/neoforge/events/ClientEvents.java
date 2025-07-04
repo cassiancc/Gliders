@@ -38,7 +38,6 @@ public class ClientEvents {
         EntityRenderState state = Minecraft.getInstance().getEntityRenderDispatcher().getRenderer(player).createRenderState();
         var stack = CuriosTrinketsUtil.getInstance().getFirstFoundGlider(player);
         if (state instanceof HumanoidRenderState living) {
-            boolean isSpaceGlider = GliderUtil.isXWing(living);
             PoseStack posestack = event.getPoseStack();
             if (event.getStage() == RenderLevelStageEvent.Stage.AFTER_TRANSLUCENT_BLOCKS && Minecraft.getInstance().options.getCameraType() == CameraType.FIRST_PERSON && GliderUtil.isGlidingWithActiveGlider(living)) {
                 posestack.pushPose();
@@ -46,7 +45,7 @@ public class ClientEvents {
                 posestack.mulPose(Axis.YP.rotationDegrees(living.bodyRot));
                 posestack.translate(0, -2.4, -0.5);
                 posestack.scale(1.5F, 1.5F, 1.5F);
-                if (isSpaceGlider) {
+                if (GliderItem.isSpaceGlider(stack)) {
                     posestack.translate(0, -0.2, 0);
                     posestack.mulPose(Axis.YP.rotation(180));
                     PlayerGliderLayer.xWingModel.setupAnim(living);
@@ -57,13 +56,6 @@ public class ClientEvents {
                 }
                 posestack.popPose();
             }
-        }
-    }
-
-    @SubscribeEvent
-    public static void onMovement(MovementInputUpdateEvent event) {
-        if (GliderUtil.isGlidingWithActiveGlider(Minecraft.getInstance().player)) {
-            event.getInput().shiftKeyDown = false;
         }
     }
 
