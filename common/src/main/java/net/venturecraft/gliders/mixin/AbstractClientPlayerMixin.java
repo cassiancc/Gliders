@@ -24,7 +24,7 @@ public class AbstractClientPlayerMixin implements AnimatedPlayer {
     private void init(ClientLevel clientLevel, GameProfile gameProfile, CallbackInfo ci) {
         var livingEntity = (AbstractClientPlayer) (Object) this;
         PlayerAnimationAccess.getPlayerAnimLayer(livingEntity).addAnimLayer(1000, vc_gliders$gliderLayer);
-        AnimationHandler.startGliderAnimation(livingEntity);
+
     }
 
 

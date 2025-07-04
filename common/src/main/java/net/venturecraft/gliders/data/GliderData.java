@@ -2,12 +2,14 @@ package net.venturecraft.gliders.data;
 
 import commonnetwork.api.Network;
 import dev.architectury.injectables.annotations.ExpectPlatform;
+import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.AnimationState;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.venturecraft.gliders.client.animation.AnimationHandler;
 import net.venturecraft.gliders.network.SyncGliderData;
 import net.venturecraft.gliders.util.GliderUtil;
 import org.jetbrains.annotations.NotNull;
@@ -40,7 +42,6 @@ public class GliderData {
 
         if (livingEntity.level().isClientSide) return;
         setIsGliding(livingEntity, GliderUtil.isGlidingWithActiveGlider(livingEntity));
-
         if (livingEntity.tickCount % 40 == 0) {
             sync(livingEntity);
         }
