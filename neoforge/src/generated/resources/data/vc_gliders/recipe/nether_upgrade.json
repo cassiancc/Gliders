@@ -2,18 +2,10 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "B": {
-      "item": "minecraft:blaze_powder"
-    },
-    "F": {
-      "item": "minecraft:nether_brick_fence"
-    },
-    "R": {
-      "item": "minecraft:blaze_rod"
-    },
-    "U": {
-      "item": "minecraft:crying_obsidian"
-    }
+    "B": "minecraft:blaze_powder",
+    "F": "minecraft:nether_brick_fence",
+    "R": "minecraft:blaze_rod",
+    "U": "minecraft:crying_obsidian"
   },
   "pattern": [
     "   ",

@@ -3,12 +3,8 @@
   "category": "misc",
   "group": "gliders",
   "key": {
-    "D": {
-      "item": "minecraft:diamond"
-    },
-    "P": {
-      "item": "vc_gliders:reinforced_paper"
-    }
+    "D": "minecraft:diamond",
+    "P": "vc_gliders:reinforced_paper"
   },
   "pattern": [
     "DDD",

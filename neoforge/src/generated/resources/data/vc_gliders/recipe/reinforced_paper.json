@@ -3,12 +3,8 @@
   "category": "misc",
   "group": "gliders",
   "key": {
-    "L": {
-      "item": "minecraft:leather"
-    },
-    "P": {
-      "item": "minecraft:paper"
-    }
+    "L": "minecraft:leather",
+    "P": "minecraft:paper"
   },
   "pattern": [
     "LPL",

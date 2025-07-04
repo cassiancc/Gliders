@@ -3,12 +3,8 @@
   "category": "misc",
   "group": "gliders",
   "key": {
-    "N": {
-      "item": "minecraft:netherite_scrap"
-    },
-    "P": {
-      "item": "vc_gliders:reinforced_paper"
-    }
+    "N": "minecraft:netherite_scrap",
+    "P": "vc_gliders:reinforced_paper"
   },
   "pattern": [
     "NNN",

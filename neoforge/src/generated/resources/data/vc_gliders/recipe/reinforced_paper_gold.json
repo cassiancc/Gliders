@@ -3,12 +3,8 @@
   "category": "misc",
   "group": "gliders",
   "key": {
-    "G": {
-      "item": "minecraft:gold_ingot"
-    },
-    "P": {
-      "item": "vc_gliders:reinforced_paper"
-    }
+    "G": "minecraft:gold_ingot",
+    "P": "vc_gliders:reinforced_paper"
   },
   "pattern": [
     "GGG",
