@@ -2,6 +2,7 @@ package net.venturecraft.gliders.common.item;
 
 import com.mojang.serialization.Codec;
 import net.minecraft.core.component.DataComponentType;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.venturecraft.gliders.registry.DeferredRegistry;

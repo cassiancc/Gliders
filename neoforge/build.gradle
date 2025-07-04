@@ -23,37 +23,37 @@ loom {
     }
 }
 
-unifiedPublishing {
-    project {
-        displayName = "🍂 [Neoforge] - Gliders - $rootProject.minecraft_version-v$rootProject.mod_version"
-        releaseType = "release"
-        changelog = new File("${rootProject.projectDir}/changelog.md").text
-        gameVersions = ["1.21.1"]
-        mainPublication tasks.remapJar
-        gameLoaders = ["neoforge"]
-        relations {
-
-        }
-
-        var CURSE_API_KEY = project.findProperty("curseforge") ?: System.getenv("curseforge") ?: ""
-        if (CURSE_API_KEY != "") {
-            curseforge {
-                token = CURSE_API_KEY
-                id = "828331"
-                gameVersions.addAll "Java 21", "1.21.1"
-            }
-        }
-
-        var MODRINTH_TOKEN = project.findProperty("modrinth") ?: System.getenv("modrinth") ?: ""
-        if (MODRINTH_TOKEN != "") {
-            modrinth {
-                token = MODRINTH_TOKEN
-                id = "XiC6HzoU"
-                version = "$rootProject.mod_version+$project.name"
-            }
-        }
-    }
-}
+//unifiedPublishing {
+//    project {
+//        displayName = "🍂 [Neoforge] - Gliders - $rootProject.minecraft_version-v$rootProject.mod_version"
+//        releaseType = "release"
+//        changelog = new File("${rootProject.projectDir}/changelog.md").text
+//        gameVersions = ["1.21.1"]
+//        mainPublication tasks.remapJar
+//        gameLoaders = ["neoforge"]
+//        relations {
+//
+//        }
+//
+//        var CURSE_API_KEY = project.findProperty("curseforge") ?: System.getenv("curseforge") ?: ""
+//        if (CURSE_API_KEY != "") {
+//            curseforge {
+//                token = CURSE_API_KEY
+//                id = "828331"
+//                gameVersions.addAll "Java 21", "1.21.1"
+//            }
+//        }
+//
+//        var MODRINTH_TOKEN = project.findProperty("modrinth") ?: System.getenv("modrinth") ?: ""
+//        if (MODRINTH_TOKEN != "") {
+//            modrinth {
+//                token = MODRINTH_TOKEN
+//                id = "XiC6HzoU"
+//                version = "$rootProject.mod_version+$project.name"
+//            }
+//        }
+//    }
+//}
 
 configurations {
     common
@@ -67,12 +67,7 @@ dependencies {
     neoForge "net.neoforged:neoforge:${rootProject.forge_version}"
 
     // Player Animator
-    include modImplementation("curse.maven:playeranimator-658587:6024462") {
-        exclude group: "net.neoforged"
-    }
-
-    // JEI
-    modCompileOnly("mezz.jei:jei-${rootProject.minecraft_version}-neoforge-api:${rootProject.jei_version}") {
+    include modImplementation("curse.maven:playeranimator-658587:6352364") {
         exclude group: "net.neoforged"
     }
 
@@ -94,11 +89,11 @@ dependencies {
         exclude group: "net.neoforged"
     }
 
-    implementation("mysticdrew:common-networking-neoforge:1.0.16-1.21") {
+    implementation("mysticdrew:common-networking-neoforge:1.0.18-1.21.5") {
         exclude group: "net.neoforged"
     }
 
-    include("mysticdrew:common-networking-neoforge:1.0.16-1.21") {
+    include("mysticdrew:common-networking-neoforge:1.0.18-1.21.5") {
         exclude group: "net.neoforged"
     }
 

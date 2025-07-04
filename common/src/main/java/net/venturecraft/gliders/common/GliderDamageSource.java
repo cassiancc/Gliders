@@ -14,9 +14,7 @@ public class GliderDamageSource {
     public static final ResourceKey<DamageType> ZAP_EXPERIMENT = ResourceKey.create(Registries.DAMAGE_TYPE, VCGliders.id("zap_experiment"));
 
     public static DamageSource getSource(ServerLevel level, ResourceKey<DamageType> damageTypeResourceKey) {
-        Holder.Reference<DamageType> damageType = level.registryAccess()
-                .registryOrThrow(Registries.DAMAGE_TYPE)
-                .getHolderOrThrow(damageTypeResourceKey);
+        Holder.Reference<DamageType> damageType = level.damageSources().damageTypes.getOrThrow(damageTypeResourceKey);
         return new DamageSource(damageType);
     }
 }

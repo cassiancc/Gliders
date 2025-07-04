@@ -2,6 +2,7 @@ package net.venturecraft.gliders.data;
 
 import commonnetwork.api.Network;
 import dev.architectury.injectables.annotations.ExpectPlatform;
+import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.AnimationState;
@@ -96,8 +97,8 @@ public class GliderData {
     }
 
     public static void deserializeNBT(Player player, CompoundTag nbt) {
-        setIsGliding(player, nbt.getBoolean("is_gliding"));
-        setLightningTimer(player, nbt.getInt("lightningTimer"));
+        setIsGliding(player, nbt.getBooleanOr("is_gliding", false));
+        setLightningTimer(player, nbt.getIntOr("lightningTimer", 0));
     }
 
     public static CompoundTag serializeNBT() {

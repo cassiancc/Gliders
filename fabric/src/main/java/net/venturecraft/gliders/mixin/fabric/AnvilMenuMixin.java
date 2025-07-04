@@ -21,8 +21,8 @@ public abstract class AnvilMenuMixin extends ItemCombinerMenu {
     @Final
     private DataSlot cost;
 
-    protected AnvilMenuMixin(@Nullable MenuType<?> type, int containerId, Inventory playerInventory, ContainerLevelAccess access) {
-        super(type, containerId, playerInventory, access);
+    protected AnvilMenuMixin(@Nullable MenuType<?> type, int containerId, Inventory playerInventory, ContainerLevelAccess access, ItemCombinerMenuSlotDefinition slotDefinition) {
+        super(type, containerId, playerInventory, access, slotDefinition);
     }
 
     /**
@@ -38,7 +38,7 @@ public abstract class AnvilMenuMixin extends ItemCombinerMenu {
         if(left.getItem() instanceof GliderItem gliderItem) {
 
             // Glider Repair
-            if (gliderItem.isValidRepairItem(left, right)) {
+            if (left.isValidRepairItem(right)) {
                 ItemStack data = left.copy();
                 GliderItem.setBroken(data, false);
                 data.setDamageValue(0);

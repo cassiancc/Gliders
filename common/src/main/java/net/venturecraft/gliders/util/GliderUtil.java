@@ -1,7 +1,8 @@
 package net.venturecraft.gliders.util;
 
 import commonnetwork.api.Network;
-import dev.architectury.injectables.annotations.ExpectPlatform;
+import net.minecraft.client.renderer.entity.state.EntityRenderState;
+import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -25,6 +26,7 @@ import net.venturecraft.gliders.common.compat.trinket.CuriosTrinketsUtil;
 import net.venturecraft.gliders.common.item.GliderItem;
 import net.venturecraft.gliders.common.sound.SoundRegistry;
 import net.venturecraft.gliders.data.GliderData;
+import net.venturecraft.gliders.access.LivingEntityRenderStateAccess;
 import net.venturecraft.gliders.network.MessagePOV;
 
 import java.util.Iterator;
@@ -36,6 +38,22 @@ import static net.venturecraft.gliders.common.item.GliderItem.*;
 public class GliderUtil {
     public static boolean hasGliderEquipped(LivingEntity livingEntity) {
         return CuriosTrinketsUtil.getInstance().getFirstFoundGlider(livingEntity).getItem() instanceof GliderItem;
+    }
+
+    public static boolean hasGliderEquipped(LivingEntityRenderState renderState) {
+        return ((LivingEntityRenderStateAccess) renderState).vc_gliders$hasGlider();
+    }
+
+    public static boolean isGlidingWithActiveGlider(EntityRenderState renderState) {
+        return ((LivingEntityRenderStateAccess) renderState).vc_gliders$isGliding();
+    }
+
+    public static boolean isXWing(EntityRenderState renderState) {
+        return ((LivingEntityRenderStateAccess) renderState).vc_gliders$isXWing();
+    }
+
+    public static ItemStack getItem(EntityRenderState renderState) {
+        return ((LivingEntityRenderStateAccess) renderState).vc_gliders$getItem();
     }
 
     public static boolean isGliderActive(LivingEntity livingEntity) {
@@ -101,14 +119,14 @@ public class GliderUtil {
 
             // Handle Movement
             Vec3 m = player.getDeltaMovement();
-            boolean hasSpeedMods = hasCopperUpgrade(glider) && hasBeenStruck(glider);
+            boolean hasSpeedMods = GliderItem.hasCopperUpgrade(glider) && GliderItem.hasBeenStruck(glider);
 
             lightningLogic(level, player, glider);
 
             if (player.tickCount % (player.level().dimension() == Level.NETHER ? 40 : 100) == 0) {
                 if (player instanceof ServerPlayer serverPlayer) {
 
-                    int damageAmount = player.level().dimension() == Level.NETHER && !hasNetherUpgrade(glider) ? glider.getMaxDamage() / 2 : 1;
+                    int damageAmount = player.level().dimension() == Level.NETHER && !GliderItem.hasNetherUpgrade(glider) ? glider.getMaxDamage() / 2 : 1;
                     glider.setDamageValue(glider.getDamageValue() + damageAmount);
                     if (glider.getDamageValue() >= glider.getMaxDamage()) {
                         level.playSound(null, serverPlayer.getX(), serverPlayer.getY(), serverPlayer.getZ(), SoundEvents.FIRE_EXTINGUISH, SoundSource.PLAYERS, 1.0F, 1.0F / (level.getRandom().nextFloat() * 0.4F + 1.2F));
@@ -162,7 +180,7 @@ public class GliderUtil {
     }
 
     private static void handleNetherLogic(Level level, LivingEntity player, ItemStack glider) {
-        if (level.dimension() == Level.NETHER && !hasNetherUpgrade(glider)) {
+        if (level.dimension() == Level.NETHER && !GliderItem.hasNetherUpgrade(glider)) {
             if (player.level().random.nextInt(24) == 0 && !player.isSilent()) {
                 player.level().playLocalSound(player.getX() + 0.5, player.getY() + 0.5, player.getZ() + 0.5, SoundEvents.BLAZE_BURN, player.getSoundSource(), 1.0F + level.random.nextFloat(), level.random.nextFloat() * 0.7F + 0.3F, false);
 
@@ -193,7 +211,7 @@ public class GliderUtil {
                 }
             };
 
-            if (player.level().random.nextInt(24) == 0 && !hasCopperUpgrade(glider)) {
+            if (player.level().random.nextInt(24) == 0 && !GliderItem.hasCopperUpgrade(glider)) {
                 for (int i = 0; i < 2; i++) {
                     level.addParticle(ParticleTypes.WAX_ON, player.getRandomX(0.5), player.getY() + 2.5D, player.getRandomZ(0.5), 0.2D, 1.0D, 0.0D);
                     level.addParticle(ParticleTypes.WAX_OFF, player.getRandomX(0.5), player.getY() + 2.5D, player.getRandomZ(0.5), 0.0D, 0.2D, 0.0D);
@@ -241,5 +259,4 @@ public class GliderUtil {
     public static boolean isFabric() {
         return VCGliders.PLATFORM.equals("fabric");
     }
-
 }

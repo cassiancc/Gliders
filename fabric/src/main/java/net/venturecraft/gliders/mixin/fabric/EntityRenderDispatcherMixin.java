@@ -29,6 +29,8 @@ import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
+import net.minecraft.client.renderer.entity.state.PlayerRenderState;
+import net.minecraft.client.resources.PlayerSkin;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.world.entity.EntityType;
@@ -48,10 +50,10 @@ import java.util.function.Predicate;
 public class EntityRenderDispatcherMixin {
 
     @Shadow
-    private Map<EntityType<?>, EntityRenderer<?>> renderers;
+    private Map<EntityType<?>, EntityRenderer<?, ?>> renderers;
 
     @Shadow
-    private Map<String, EntityRenderer<? extends Player>> playerRenderers;
+    private Map<PlayerSkin.Model, EntityRenderer<? extends Player, ?>> playerRenderers;
 
     @SuppressWarnings({"unchecked", "rawtypes"})
     @Inject(at = @At("RETURN"), method = "onResourceManagerReload")

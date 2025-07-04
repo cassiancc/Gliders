@@ -7,29 +7,26 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
+import net.minecraft.client.renderer.entity.state.EntityRenderState;
+import net.minecraft.client.renderer.entity.state.HumanoidRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.core.Registry;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.venturecraft.gliders.VCGliders;
 import net.venturecraft.gliders.client.model.GliderModel;
 import net.venturecraft.gliders.client.model.ModelRegistry;
 import net.venturecraft.gliders.client.model.XWingModel;
-import net.venturecraft.gliders.common.compat.trinket.CuriosTrinketsUtil;
 import net.venturecraft.gliders.common.item.GliderItem;
 import net.venturecraft.gliders.util.GliderUtil;
 
-public class PlayerGliderLayer<T extends LivingEntity, M extends HumanoidModel<T>, A extends HumanoidModel<T>> extends RenderLayer<T, M> {
+public class PlayerGliderLayer<T extends HumanoidRenderState, M extends HumanoidModel<T>, A extends HumanoidModel<T>> extends RenderLayer<T, M> {
 
     private static final ResourceLocation COPPER_EMBED = VCGliders.id( "textures/entity/glider/copper_overlay.png");
     private static final ResourceLocation NETHER_UPGRADE = VCGliders.id( "textures/entity/glider/nether_upgrade_overlay.png");
     private static final ResourceLocation COPPER_EMBED_CHARGED = VCGliders.id( "textures/entity/glider/copper_overlay_charged.png");
     private static final ResourceLocation XWING_TEXTURE = VCGliders.id( "textures/entity/glider/xwing.png");
     public static GliderModel gliderModel;
-    public static XWingModel<Entity> xWingModel;
+    public static XWingModel<EntityRenderState> xWingModel;
 
 
     public PlayerGliderLayer(RenderLayerParent<T, M> renderLayerParent) {
@@ -44,39 +41,42 @@ public class PlayerGliderLayer<T extends LivingEntity, M extends HumanoidModel<T
         return ResourceLocation.fromNamespaceAndPath(itemLoc.getNamespace(), "textures/entity/glider/" + itemLoc.getPath() + ".png");
     }
 
-    @Override
-    public void render(PoseStack poseStack, MultiBufferSource bufferSource, int p_117351_, T living, float p_117353_, float p_117354_, float p_117355_, float p_117356_, float p_117357_, float p_117358_) {
-        if (living.isInvisibleTo(Minecraft.getInstance().player)) return;
+    public static ResourceLocation getGliderTexture(EntityRenderState state) {
+        return getGliderTexture(GliderUtil.getItem(state));
+    }
 
-        ItemStack stack = CuriosTrinketsUtil.getInstance().getFirstFoundGlider(living);
+    @Override
+    public void render(PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, T renderState, float yRot, float xRot) {
+        if (renderState.isInvisibleToPlayer) return;
 
         // Render above players when gliding
-        if (GliderUtil.isGlidingWithActiveGlider(living)) {
+        if (GliderUtil.isGlidingWithActiveGlider(renderState)) {
             poseStack.pushPose();
+            var stack = GliderUtil.getItem(renderState);
 
 
-            if (stack.getDisplayName().getString().contains("xwing")) {
+            if (GliderUtil.isXWing(renderState)) {
                 // Translate and render base glider
                 poseStack.translate(0, -1.9, -0.5);
-                xWingModel.setupAnim(living, 0, 0, living.tickCount, 0, 0);
-                xWingModel.renderToBuffer(poseStack, bufferSource.getBuffer(RenderType.entityCutoutNoCull(getGliderTexture(stack))), p_117351_, OverlayTexture.NO_OVERLAY, -1);
+                xWingModel.setupAnim(renderState);
+                xWingModel.renderToBuffer(poseStack, bufferSource.getBuffer(RenderType.entityCutoutNoCull(getGliderTexture(renderState))), packedLight, OverlayTexture.NO_OVERLAY, -1);
             } else {
 
                 // Translate and render base glider
                 poseStack.translate(0, -1.8, 0);
-                gliderModel.setupAnim(living, 0, 0, living.tickCount, 0, 0);
-                gliderModel.renderToBuffer(poseStack, bufferSource.getBuffer(RenderType.entityCutoutNoCull(getGliderTexture(stack))), p_117351_, OverlayTexture.NO_OVERLAY, -1);
+                gliderModel.setupAnim(renderState);
+                gliderModel.renderToBuffer(poseStack, bufferSource.getBuffer(RenderType.entityCutoutNoCull(getGliderTexture(renderState))), packedLight, OverlayTexture.NO_OVERLAY, -1);
 
                 // Has Coppered Embedded
                 if (GliderItem.hasCopperUpgrade(stack)) {
-                    gliderModel.setupAnim(living, 0, 0, living.tickCount, 0, 0);
-                    gliderModel.renderToBuffer(poseStack, bufferSource.getBuffer(RenderType.eyes(GliderItem.hasBeenStruck(stack) ? COPPER_EMBED_CHARGED : COPPER_EMBED)), p_117351_, OverlayTexture.NO_OVERLAY, -1);
+                    gliderModel.setupAnim(renderState);
+                    gliderModel.renderToBuffer(poseStack, bufferSource.getBuffer(RenderType.eyes(GliderItem.hasBeenStruck(stack) ? COPPER_EMBED_CHARGED : COPPER_EMBED)), packedLight, OverlayTexture.NO_OVERLAY, -1);
                 }
 
                 // Has Nether Embedded
                 if (GliderItem.hasNetherUpgrade(stack)) {
-                    gliderModel.setupAnim(living, 0, 0, living.tickCount, 0, 0);
-                    gliderModel.renderToBuffer(poseStack, bufferSource.getBuffer(RenderType.entityCutoutNoCull(NETHER_UPGRADE)), p_117351_, OverlayTexture.NO_OVERLAY, -1);
+                    gliderModel.setupAnim(renderState);
+                    gliderModel.renderToBuffer(poseStack, bufferSource.getBuffer(RenderType.entityCutoutNoCull(NETHER_UPGRADE)), packedLight, OverlayTexture.NO_OVERLAY, -1);
                 }
             }
             poseStack.popPose();

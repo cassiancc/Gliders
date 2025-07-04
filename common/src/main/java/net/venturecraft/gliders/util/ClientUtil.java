@@ -1,12 +1,10 @@
 package net.venturecraft.gliders.util;
 
-import dev.architectury.injectables.annotations.ExpectPlatform;
 import net.minecraft.client.CameraType;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.components.toasts.SystemToast;
 import net.minecraft.client.gui.screens.options.controls.ControlsScreen;
-import net.minecraft.client.renderer.item.ClampedItemPropertyFunction;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
@@ -17,7 +15,6 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
@@ -55,10 +52,6 @@ public class ClientUtil {
 
     public static void playGliderSound(Player player, ResourceLocation soundName, SoundSource category, boolean repeat, Supplier<Boolean> stopCondition, float volume, RandomSource randomSource) {
         Minecraft.getInstance().getSoundManager().play(new MovingSound(player, SoundEvent.createFixedRangeEvent(soundName, 1), category, repeat, stopCondition, volume, randomSource));
-    }
-
-    public static void createToast(MutableComponent title, MutableComponent subtitle) {
-        Minecraft.getInstance().getToasts().addToast(new SystemToast(SystemToast.SystemToastId.NARRATOR_TOGGLE, title, subtitle));
     }
 
     public static void povButton(ControlsScreen controlsScreen) {
@@ -104,11 +97,6 @@ public class ClientUtil {
                 }
             }
         }
-    }
-
-    @ExpectPlatform
-    public static void addPredicate(Item item, ResourceLocation resourceLocation, ClampedItemPropertyFunction clampedItemPropertyFunction) {
-        throw new AssertionError();
     }
 
     public static void setPlayerPerspective(String pointOfView) {

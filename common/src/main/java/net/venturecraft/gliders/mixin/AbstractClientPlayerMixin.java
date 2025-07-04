@@ -7,6 +7,7 @@ import dev.kosmx.playerAnim.minecraftApi.PlayerAnimationAccess;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.player.AbstractClientPlayer;
 import net.venturecraft.gliders.client.animation.AnimatedPlayer;
+import net.venturecraft.gliders.client.animation.AnimationHandler;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -21,7 +22,9 @@ public class AbstractClientPlayerMixin implements AnimatedPlayer {
 
     @Inject(method = "<init>", at = @At(value = "RETURN"))
     private void init(ClientLevel clientLevel, GameProfile gameProfile, CallbackInfo ci) {
-        PlayerAnimationAccess.getPlayerAnimLayer((AbstractClientPlayer) (Object) this).addAnimLayer(1000, vc_gliders$gliderLayer);
+        var livingEntity = (AbstractClientPlayer) (Object) this;
+        PlayerAnimationAccess.getPlayerAnimLayer(livingEntity).addAnimLayer(1000, vc_gliders$gliderLayer);
+        AnimationHandler.startGliderAnimation(livingEntity);
     }
 
 

@@ -1,8 +1,10 @@
 package net.venturecraft.gliders.registry;
 
 import dev.architectury.injectables.annotations.ExpectPlatform;
+import net.minecraft.core.DefaultedRegistry;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.item.Item;
 
 import java.util.Collection;
 import java.util.function.Supplier;

@@ -9,6 +9,7 @@
     "ControlScreenMixin",
     "ItemInHandLayerMixin",
     "ItemInHandRendererMixin",
+    "LivingEntityRenderStateMixin",
     "LocalPlayerMixin"
   ],
   "mixins": [

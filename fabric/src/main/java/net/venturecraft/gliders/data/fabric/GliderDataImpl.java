@@ -1,6 +1,7 @@
 package net.venturecraft.gliders.data.fabric;
 
 
+import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.LivingEntity;

@@ -133,6 +133,13 @@ allprojects {
                 includeGroup 'curse.maven'
             }
         }
+        maven {
+            name = "Modrinth"
+            url = "https://api.modrinth.com/maven"
+            content {
+                 includeGroup "maven.modrinth"
+            }
+        }
 
         maven {
             url = 'https://maven.terraformersmc.com/releases/'
@@ -188,6 +195,7 @@ allprojects {
         maven {
             url = "https://jm.gserv.me/repository/maven-public/"
         }
+
     }
 
     tasks.withType(JavaCompile) {
