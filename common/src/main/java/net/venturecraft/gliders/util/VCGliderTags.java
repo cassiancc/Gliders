@@ -13,9 +13,13 @@ public class VCGliderTags {
     public static final TagKey<Item> REPAIRS_GOLD_PARAGLIDER = makeItem("repairs_gold_paraglider");
     public static final TagKey<Item> REPAIRS_DIAMOND_PARAGLIDER = makeItem("repairs_diamond_paraglider");
     public static final TagKey<Item> REPAIRS_NETHERITE_PARAGLIDER = makeItem("repairs_netherite_paraglider");
+
+    public static TagKey<Item> GLIDERS = makeItem(VCGliders.MOD_ID, "gliders");
     public static TagKey<Item> TRINKETS_BACK = makeItem("trinkets", "chest/back");
     public static TagKey<Item> TRINKETS_CAPE = makeItem("trinkets", "chest/cape");
     public static TagKey<Item> CURIOS_CHEST = makeItem("curios", "glider");
+    public static TagKey<Item> CURIOS_BACK = makeItem("curios", "back");
+    public static TagKey<Item> CURIOS_CAPE = makeItem("curios", "cape");
     public static TagKey<Block> UPDRAFT_BLOCKS = makeBlock(VCGliders.MOD_ID, "updraft");
 
 
