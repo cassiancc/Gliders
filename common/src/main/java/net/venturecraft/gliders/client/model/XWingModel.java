@@ -1,9 +1,6 @@
 package net.venturecraft.gliders.client.model;
 
-import net.minecraft.client.animation.AnimationChannel;
-import net.minecraft.client.animation.AnimationDefinition;
-import net.minecraft.client.animation.Keyframe;
-import net.minecraft.client.animation.KeyframeAnimations;
+import net.minecraft.client.animation.*;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.Model;
 import net.minecraft.client.model.geom.ModelPart;
@@ -22,7 +19,7 @@ import net.venturecraft.gliders.util.GliderUtil;
 public class XWingModel<T extends EntityRenderState> extends EntityModel<HumanoidRenderState> {
 
     public static final AnimationDefinition OPEN_XWING = AnimationDefinition.Builder.withLength(26f).addAnimation("LW1", new AnimationChannel(AnimationChannel.Targets.ROTATION, new Keyframe(0f, KeyframeAnimations.degreeVec(0f, 0f, 2.5f), AnimationChannel.Interpolations.CATMULLROM), new Keyframe(0.4166666666666667f, KeyframeAnimations.degreeVec(0f, 0f, -17.66f), AnimationChannel.Interpolations.CATMULLROM), new Keyframe(0.7083333333333334f, KeyframeAnimations.degreeVec(0f, 0f, -17.5f), AnimationChannel.Interpolations.CATMULLROM))).addAnimation("LW2", new AnimationChannel(AnimationChannel.Targets.ROTATION, new Keyframe(0f, KeyframeAnimations.degreeVec(0f, 0f, -5f), AnimationChannel.Interpolations.CATMULLROM), new Keyframe(0.4166666666666667f, KeyframeAnimations.degreeVec(0f, 0f, 17.66f), AnimationChannel.Interpolations.CATMULLROM), new Keyframe(0.6666666666666666f, KeyframeAnimations.degreeVec(0f, 0f, 15f), AnimationChannel.Interpolations.CATMULLROM))).addAnimation("RW1", new AnimationChannel(AnimationChannel.Targets.ROTATION, new Keyframe(0f, KeyframeAnimations.degreeVec(0f, 0f, -2.5f), AnimationChannel.Interpolations.CATMULLROM), new Keyframe(0.4166666666666667f, KeyframeAnimations.degreeVec(0f, 0f, 18.27f), AnimationChannel.Interpolations.CATMULLROM), new Keyframe(0.6666666666666666f, KeyframeAnimations.degreeVec(0f, 0f, 15f), AnimationChannel.Interpolations.CATMULLROM))).addAnimation("RW2", new AnimationChannel(AnimationChannel.Targets.ROTATION, new Keyframe(0f, KeyframeAnimations.degreeVec(0f, 0f, 5f), AnimationChannel.Interpolations.CATMULLROM), new Keyframe(0.4166666666666667f, KeyframeAnimations.degreeVec(0f, 0f, -17.66f), AnimationChannel.Interpolations.CATMULLROM), new Keyframe(0.7083333333333334f, KeyframeAnimations.degreeVec(0f, 0f, -15f), AnimationChannel.Interpolations.CATMULLROM))).build();
-
+    public final KeyframeAnimation opening;
     private final ModelPart bone;
     private final ModelPart bone4;
     private final ModelPart bone8;
@@ -42,6 +39,7 @@ public class XWingModel<T extends EntityRenderState> extends EntityModel<Humanoi
         this.LW2 = root.getChild("LW2");
         this.RW1 = root.getChild("RW1");
         this.RW2 = root.getChild("RW2");
+        this.opening = OPEN_XWING.bake(root);
     }
 
     public static LayerDefinition createBodyLayer() {
@@ -170,7 +168,7 @@ public class XWingModel<T extends EntityRenderState> extends EntityModel<Humanoi
             this.root().getAllParts().forEach(ModelPart::resetPose);
 
             if (GliderUtil.isGlidingWithActiveGlider(livingEntity)) {
-                this.animate(GliderData.getAnimation(GliderData.AnimationStates.GLIDER_OPENING), OPEN_XWING, entity.ageInTicks);
+                this.opening.apply(GliderData.getAnimation(GliderData.AnimationStates.GLIDER_OPENING), entity.ageInTicks);
             }
         }
     }
