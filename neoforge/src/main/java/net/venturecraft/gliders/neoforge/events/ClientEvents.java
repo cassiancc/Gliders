@@ -32,14 +32,14 @@ import static net.venturecraft.gliders.VCGlidersClient.lightLevel;
 public class ClientEvents {
 
     @SubscribeEvent
-    public static void onRenderLevelLast(RenderLevelStageEvent event) {
+    public static void onRenderLevelLast(RenderLevelStageEvent.AfterTranslucentBlocks event) {
         RenderBuffers bufferSource = Minecraft.getInstance().renderBuffers();
         var player = Minecraft.getInstance().player;
         EntityRenderState state = Minecraft.getInstance().getEntityRenderDispatcher().getRenderer(player).createRenderState();
         var stack = CuriosTrinketsUtil.getInstance().getFirstFoundGlider(player);
         if (state instanceof HumanoidRenderState living) {
             PoseStack posestack = event.getPoseStack();
-            if (event.getStage() == RenderLevelStageEvent.Stage.AFTER_TRANSLUCENT_BLOCKS && Minecraft.getInstance().options.getCameraType() == CameraType.FIRST_PERSON && GliderUtil.isGlidingWithActiveGlider(living)) {
+            if (Minecraft.getInstance().options.getCameraType() == CameraType.FIRST_PERSON && GliderUtil.isGlidingWithActiveGlider(living)) {
                 posestack.pushPose();
                 posestack.mulPose(Axis.XP.rotationDegrees(180));
                 posestack.mulPose(Axis.YP.rotationDegrees(living.bodyRot));

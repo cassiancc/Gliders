@@ -15,15 +15,15 @@ public class VCAttachments {
 
     static final DeferredRegister<AttachmentType<?>> ATTACHMENT_TYPES = DeferredRegister.create(NeoForgeRegistries.ATTACHMENT_TYPES, MOD_ID);
     public static final Supplier<AttachmentType<CompoundTag>> PLAYER_DATA = ATTACHMENT_TYPES.register(
-            "glider_data", () -> AttachmentType.builder(CompoundTag::new).serialize(CompoundTag.CODEC).build()
+            "glider_data", () -> AttachmentType.builder(()->new CompoundTag()).serialize(CompoundTag.CODEC.fieldOf("glider_data")).build()
     );
 
     public static final Supplier<AttachmentType<Integer>> LIGHTNING_TIMER = ATTACHMENT_TYPES.register(
-            "lightning_timer", () -> AttachmentType.builder(()->0).serialize(Codec.INT).build()
+            "lightning_timer", () -> AttachmentType.builder(()->0).serialize(Codec.INT.fieldOf("lightning_timer")).build()
     );
 
     public static final Supplier<AttachmentType<Boolean>> IS_GLIDING = ATTACHMENT_TYPES.register(
-            "is_gliding", () -> AttachmentType.builder(()->false).serialize(Codec.BOOL).build()
+            "is_gliding", () -> AttachmentType.builder(()->false).serialize(Codec.BOOL.fieldOf("is_gliding")).build()
     );
 
     public static void register(IEventBus eventBus) {
