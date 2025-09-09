@@ -51,10 +51,10 @@ public abstract class LevelRendererMixin {
                 posestack.mulPose(Axis.YP.rotationDegrees(180));
                 posestack.translate(0, -0.2, 0);
                 PlayerGliderLayer.xWingModel.setupAnim(humanoidRenderState);
-                PlayerGliderLayer.xWingModel.renderToBuffer(posestack, bufferSource.bufferSource().getBuffer(RenderType.entityCutoutNoCull(PlayerGliderLayer.getGliderTexture(stack))), LevelRenderer.getLightColor(living.level(), living.blockPosition()), OverlayTexture.NO_OVERLAY, 1);
+                PlayerGliderLayer.xWingModel.renderToBuffer(posestack, bufferSource.bufferSource().getBuffer(RenderType.entityCutoutNoCull(PlayerGliderLayer.getGliderTexture(stack))), LevelRenderer.getLightColor(living.level(), living.blockPosition()), OverlayTexture.NO_OVERLAY, -1);
             } else {
                 PlayerGliderLayer.gliderModel.setupAnim(humanoidRenderState);
-                PlayerGliderLayer.gliderModel.renderToBuffer(posestack, bufferSource.bufferSource().getBuffer(RenderType.entityCutoutNoCull(PlayerGliderLayer.getGliderTexture(stack))), LevelRenderer.getLightColor(living.level(), living.blockPosition()), OverlayTexture.NO_OVERLAY, 1);
+                PlayerGliderLayer.gliderModel.renderToBuffer(posestack, bufferSource.bufferSource().getBuffer(RenderType.entityCutoutNoCull(PlayerGliderLayer.getGliderTexture(stack))), LevelRenderer.getLightColor(living.level(), living.blockPosition()), OverlayTexture.NO_OVERLAY, -1);
             }
             posestack.popPose();
         }
