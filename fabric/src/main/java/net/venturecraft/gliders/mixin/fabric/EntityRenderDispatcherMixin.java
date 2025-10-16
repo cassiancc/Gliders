@@ -23,18 +23,21 @@ SOFTWARE.
 */
 package net.venturecraft.gliders.mixin.fabric;
 
+import com.google.common.collect.ImmutableMap;
 import com.mojang.datafixers.util.Pair;
 import net.fabricmc.fabric.mixin.client.rendering.LivingEntityRendererAccessor;
+import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
-import net.minecraft.client.renderer.entity.state.PlayerRenderState;
-import net.minecraft.client.resources.PlayerSkin;
+import net.minecraft.client.renderer.entity.player.AvatarRenderer;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.player.PlayerModelType;
+import net.minecraft.world.entity.player.PlayerSkin;
 import net.venturecraft.gliders.registry.fabric.EntityRendererRegistryImpl;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -50,10 +53,10 @@ import java.util.function.Predicate;
 public class EntityRenderDispatcherMixin {
 
     @Shadow
-    private Map<EntityType<?>, EntityRenderer<?, ?>> renderers;
+    private Map<EntityType<?>, EntityRenderer<?, ?>> renderers = ImmutableMap.of();
 
     @Shadow
-    private Map<PlayerSkin.Model, EntityRenderer<? extends Player, ?>> playerRenderers;
+    private Map<PlayerModelType, AvatarRenderer<AbstractClientPlayer>> playerRenderers = Map.of();
 
     @SuppressWarnings({"unchecked", "rawtypes"})
     @Inject(at = @At("RETURN"), method = "onResourceManagerReload")

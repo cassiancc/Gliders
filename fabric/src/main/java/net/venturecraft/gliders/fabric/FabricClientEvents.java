@@ -1,27 +1,13 @@
 package net.venturecraft.gliders.fabric;
 
-import com.mojang.math.Axis;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLifecycleEvents;
-import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderEvents;
-import net.minecraft.client.CameraType;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.LevelRenderer;
-import net.minecraft.client.renderer.RenderBuffers;
-import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.entity.state.EntityRenderState;
-import net.minecraft.client.renderer.entity.state.HumanoidRenderState;
-import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.world.entity.player.Player;
 import net.venturecraft.gliders.VCGlidersClient;
-import net.venturecraft.gliders.client.layer.PlayerGliderLayer;
-import net.venturecraft.gliders.common.compat.trinket.CuriosTrinketsUtil;
-import net.venturecraft.gliders.common.item.GliderItem;
-import net.venturecraft.gliders.util.GliderUtil;
 
 public class FabricClientEvents {
 
     public static void init() {
         ClientLifecycleEvents.CLIENT_STARTED.register((minecraft -> VCGlidersClient.clientSetup()));
+        /*
         WorldRenderEvents.AFTER_TRANSLUCENT.register((worldRenderContext -> {
             var posestack = worldRenderContext.matrixStack();
             RenderBuffers bufferSource = Minecraft.getInstance().renderBuffers();
@@ -51,6 +37,8 @@ public class FabricClientEvents {
             }
 
         }));
+
+         */
     }
 
 }

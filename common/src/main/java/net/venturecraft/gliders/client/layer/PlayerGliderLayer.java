@@ -5,6 +5,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.client.renderer.entity.state.EntityRenderState;
@@ -46,7 +47,7 @@ public class PlayerGliderLayer<T extends HumanoidRenderState, M extends Humanoid
     }
 
     @Override
-    public void render(PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, T renderState, float yRot, float xRot) {
+    public void submit(PoseStack poseStack, SubmitNodeCollector nodeCollector, int packedLight, T renderState, float yRot, float xRot) {
         if (renderState.isInvisibleToPlayer) return;
 
         // Render above players when gliding
@@ -59,24 +60,25 @@ public class PlayerGliderLayer<T extends HumanoidRenderState, M extends Humanoid
                 // Translate and render base glider
                 poseStack.translate(0, -1.9, -0.5);
                 xWingModel.setupAnim(renderState);
-                xWingModel.renderToBuffer(poseStack, bufferSource.getBuffer(RenderType.entityCutoutNoCull(getGliderTexture(renderState))), packedLight, OverlayTexture.NO_OVERLAY, -1);
+                nodeCollector.submitModel(xWingModel, renderState, poseStack, RenderType.entityCutoutNoCull(getGliderTexture(renderState)), packedLight, OverlayTexture.NO_OVERLAY, -1, null);
             } else {
 
                 // Translate and render base glider
                 poseStack.translate(0, -1.8, 0);
                 gliderModel.setupAnim(renderState);
-                gliderModel.renderToBuffer(poseStack, bufferSource.getBuffer(RenderType.entityCutoutNoCull(getGliderTexture(renderState))), packedLight, OverlayTexture.NO_OVERLAY, -1);
+                nodeCollector.submitModel(gliderModel, renderState, poseStack, RenderType.entityCutoutNoCull(getGliderTexture(renderState)), packedLight, OverlayTexture.NO_OVERLAY, -1, null);
+
 
                 // Has Coppered Embedded
                 if (GliderItem.hasCopperUpgrade(stack)) {
                     gliderModel.setupAnim(renderState);
-                    gliderModel.renderToBuffer(poseStack, bufferSource.getBuffer(RenderType.eyes(GliderItem.hasBeenStruck(stack) ? COPPER_EMBED_CHARGED : COPPER_EMBED)), packedLight, OverlayTexture.NO_OVERLAY, -1);
+                    nodeCollector.submitModel(gliderModel, renderState, poseStack, RenderType.eyes(GliderItem.hasBeenStruck(stack) ? COPPER_EMBED_CHARGED : COPPER_EMBED), packedLight, OverlayTexture.NO_OVERLAY, -1, null);
                 }
 
                 // Has Nether Embedded
                 if (GliderItem.hasNetherUpgrade(stack)) {
                     gliderModel.setupAnim(renderState);
-                    gliderModel.renderToBuffer(poseStack, bufferSource.getBuffer(RenderType.entityCutoutNoCull(NETHER_UPGRADE)), packedLight, OverlayTexture.NO_OVERLAY, -1);
+                    nodeCollector.submitModel(gliderModel, renderState, poseStack, RenderType.entityCutoutNoCull(NETHER_UPGRADE), packedLight, OverlayTexture.NO_OVERLAY, -1, null);
                 }
             }
             poseStack.popPose();

@@ -40,7 +40,7 @@ public class GliderData {
             setLightningTimer(livingEntity, 0);
         }
 
-        if (livingEntity.level().isClientSide) return;
+        if (livingEntity.level().isClientSide()) return;
         setIsGliding(livingEntity, GliderUtil.isGlidingWithActiveGlider(livingEntity));
         if (livingEntity.tickCount % 40 == 0) {
             sync(livingEntity);
@@ -63,7 +63,7 @@ public class GliderData {
     }
 
     public static void sync(LivingEntity livingEntity) {
-        if (livingEntity.level().isClientSide) {
+        if (livingEntity.level().isClientSide()) {
             throw new IllegalStateException("Don't sync client -> server");
         }
         SyncGliderData syncGliderData = new SyncGliderData(livingEntity.getId(), serializeNBT());
@@ -71,7 +71,7 @@ public class GliderData {
     }
 
     public static void syncTo(ServerPlayer receiver) {
-        if (receiver.level().isClientSide) {
+        if (receiver.level().isClientSide()) {
             throw new IllegalStateException("Don't sync client -> server");
         }
         Network.getNetworkHandler().sendToClient(new SyncGliderData(receiver.getId(), serializeNBT()), receiver);

@@ -104,11 +104,11 @@ dependencies {
         exclude group: "dev.onyxstudios.cardinal-components-api"
     }
 
-    modImplementation("mysticdrew:common-networking-fabric:1.0.21-1.21.7") {
+    modImplementation("mysticdrew:common-networking-fabric:1.0.22-1.21.10") {
         exclude group: "net.fabricmc.fabric-api"
     }
 
-    include("mysticdrew:common-networking-fabric:1.0.21-1.21.7") {
+    include("mysticdrew:common-networking-fabric:1.0.22-1.21.10") {
         exclude group: "net.fabricmc.fabric-api"
     }
 

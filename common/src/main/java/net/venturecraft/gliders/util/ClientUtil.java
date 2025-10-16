@@ -34,7 +34,7 @@ public class ClientUtil {
     }
 
     public static void updraftParticles(BlockState state, Level level, BlockPos pos, RandomSource random) {
-        if (!level.isClientSide || random.nextInt(5) != 0) return;
+        if (!level.isClientSide() || random.nextInt(5) != 0) return;
 
         Player player = Minecraft.getInstance().player;
         if (player == null || !GliderUtil.isGlidingWithActiveGlider(player)) return;

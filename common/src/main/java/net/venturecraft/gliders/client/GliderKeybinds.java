@@ -7,7 +7,7 @@ import org.lwjgl.glfw.GLFW;
 
 public class GliderKeybinds {
 
-    public static KeyMapping ACTIVATE_GLIDER = new KeyMapping("Activate Glider", InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_F, VCGliders.MOD_ID);
+    public static KeyMapping ACTIVATE_GLIDER = new KeyMapping("Activate Glider", InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_F, KeyMapping.Category.register(VCGliders.id("category")));
 
 
 }

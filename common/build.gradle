@@ -24,7 +24,7 @@ dependencies {
     modApi("fuzs.forgeconfigapiport:forgeconfigapiport-fabric:${rootProject.forge_config_api_port_version}") {
         exclude group: "net.minecraftforge"
     }
-    modImplementation("mysticdrew:common-networking-fabric:1.0.21-1.21.7") {
+    modImplementation("mysticdrew:common-networking-fabric:1.0.22-1.21.10") {
         exclude group: "net.fabricmc.fabric-api"
     }
 }

@@ -5,6 +5,7 @@ import net.minecraft.client.renderer.entity.state.EntityRenderState;
 import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.particles.PowerParticleOption;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
@@ -148,7 +149,7 @@ public class GliderUtil {
                 // Space Glider
                 if (isSpaceGlider(glider)) {
                     for (int i = 0; i < 2; ++i) {
-                        level.addParticle(ParticleTypes.DRAGON_BREATH, player.getRandomX(0.5D), player.getY() + 2.5, player.getRandomZ(0.5D), 1, 0.0D, 0.0D);
+                        level.addParticle(PowerParticleOption.create(ParticleTypes.DRAGON_BREATH, 1), player.getRandomX(0.5D), player.getY() + 2.5, player.getRandomZ(0.5D), 1, 0.0D, 0.0D);
                     }
                 }
 
