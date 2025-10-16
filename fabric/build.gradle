@@ -70,9 +70,7 @@ dependencies {
 
     // Player Animator
     // include modImplementation("dev.kosmx.player-anim:player-animation-lib-fabric:${rootProject.player_anim_version}")
-    include modImplementation("curse.maven:playeranimator-658587:6768163") {
-        exclude group: "net.neoforged"
-    }
+    include(modImplementation("com.zigythebird.playeranim:PlayerAnimationLibFabric:$project.pal_version"))
 
     // Cardinal Components
     modApi("dev.onyxstudios.cardinal-components-api:cardinal-components-base:${rootProject.cardinal_components_version}") {

@@ -87,18 +87,11 @@ allprojects {
             url = 'https://maven.cassian.cc'
         }
 
-
-        // Player Animator
+        mavenCentral()
         maven {
-            name = "KosmX's maven"
-            url = 'https://maven.kosmx.dev/'
+            name = "RedlanceMinecraft"
+            url = "https://repo.redlance.org/public"
         }
-
-        // ThreeTAG
-        maven {
-            url 'https://repo.repsy.io/mvn/lucraft/threetag'
-        }
-
         // Parchment
         maven {
             url = 'https://maven.parchmentmc.net/'

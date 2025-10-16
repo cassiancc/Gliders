@@ -14,7 +14,7 @@ public class LocalPlayerMixin {
 
     @Inject(method = "tick", at = @At(value = "HEAD"))
     private void tick(CallbackInfo ci) {
-        Player localPlayer = (Player) (Object) this;
+        LocalPlayer localPlayer = (LocalPlayer) (Object) this;
         AnimationHandler.startGliderAnimation(localPlayer, GliderUtil.isGlidingWithActiveGlider(localPlayer));
     }
 

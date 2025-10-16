@@ -75,9 +75,9 @@ dependencies {
     neoForge "net.neoforged:neoforge:${rootProject.forge_version}"
 
     // Player Animator
-    include modImplementation("curse.maven:playeranimator-658587:6768161") {
-        exclude group: "net.neoforged"
-    }
+    modImplementation "com.zigythebird.playeranim:PlayerAnimationLibNeo:$rootProject.pal_version"
+    modImplementation(include("com.zigythebird.playeranim:PlayerAnimationLibNeo:$rootProject.pal_version"))
+    forgeRuntimeLibrary(include("org.javassist:javassist:3.30.2-GA"))
 
     // REI
     modImplementation("me.shedaniel:RoughlyEnoughItems-neoforge:${rootProject.rei_version}") {

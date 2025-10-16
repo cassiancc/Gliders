@@ -1,5 +1,8 @@
 package net.venturecraft.gliders;
 
+import com.zigythebird.playeranim.animation.PlayerAnimationController;
+import com.zigythebird.playeranim.api.PlayerAnimationFactory;
+import com.zigythebird.playeranimcore.enums.PlayState;
 import net.minecraft.client.OptionInstance;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
@@ -15,12 +18,19 @@ public class VCGlidersClient {
 
     public static int lightLevel = 0;
     public static OptionInstance<Boolean> autoPerspective;
+    public static final ResourceLocation LAYER = VCGliders.id("animation_layer");
 
 
     public static void init() {
         autoPerspective = OptionInstance.createBoolean("options.glider_perspective", false);
         ModelRegistry.init();
         EntityRendererRegistry.addRenderLayerToPlayer(renderLayerParent -> new PlayerGliderLayer(renderLayerParent));
+
+        PlayerAnimationFactory.ANIMATION_DATA_FACTORY.registerFactory(LAYER, 1000,
+                player -> new PlayerAnimationController(player,
+                        (controller, state, animSetter) -> PlayState.STOP
+                )
+        );
 
     /*    ClientTickEvents.CLIENT_POST.register(new ClientTickEvents.ClientTick() {
             @Override

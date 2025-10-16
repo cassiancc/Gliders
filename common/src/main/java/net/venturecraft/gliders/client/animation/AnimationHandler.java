@@ -1,32 +1,30 @@
 package net.venturecraft.gliders.client.animation;
 
-import dev.kosmx.playerAnim.api.layered.IAnimation;
-import dev.kosmx.playerAnim.api.layered.KeyframeAnimationPlayer;
-import dev.kosmx.playerAnim.api.layered.ModifierLayer;
-import dev.kosmx.playerAnim.core.data.KeyframeAnimation;
-import dev.kosmx.playerAnim.minecraftApi.PlayerAnimationRegistry;
+
+import com.zigythebird.playeranim.animation.PlayerAnimationController;
+import com.zigythebird.playeranim.api.PlayerAnimationAccess;
+import com.zigythebird.playeranimcore.animation.Animation;
+import com.zigythebird.playeranimcore.animation.layered.IAnimation;
+import com.zigythebird.playeranimcore.animation.layered.ModifierLayer;
+import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.venturecraft.gliders.VCGliders;
+import net.venturecraft.gliders.VCGlidersClient;
 import net.venturecraft.gliders.util.GliderUtil;
 
 public class AnimationHandler {
 
     public static void startGliderAnimation(Player player, boolean gliding) {
+        if (player instanceof AbstractClientPlayer clientPlayer) {
+            PlayerAnimationController controller = (PlayerAnimationController) PlayerAnimationAccess.getPlayerAnimationLayer(clientPlayer, VCGlidersClient.LAYER);
 
-        ModifierLayer<IAnimation> animationContainer = ((AnimatedPlayer) player).gliders_getModifierLayer();
-        KeyframeAnimation gliderAnimation = (KeyframeAnimation) PlayerAnimationRegistry.getAnimation(VCGliders.id("gliding"));
-
-        if (GliderUtil.isGlidingWithActiveGlider(player) || gliding) {
-            if (animationContainer.getAnimation() == null) {
-                KeyframeAnimation.AnimationBuilder builder = null;
-                if (gliderAnimation != null) {
-                    builder = gliderAnimation.mutableCopy();
+            if (GliderUtil.isGlidingWithActiveGlider(player) || gliding) {
+                if (controller.getCurrentAnimation() == null) {
+                    controller.triggerAnimation(VCGliders.id("gliding"));
                 }
-                gliderAnimation = builder.build();
-                animationContainer.setAnimation(new KeyframeAnimationPlayer(gliderAnimation));
+            } else {
+                controller.stopTriggeredAnimation();
             }
-        } else {
-            animationContainer.setAnimation(null);
         }
     }
 
